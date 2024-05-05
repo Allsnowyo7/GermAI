@@ -3,7 +3,7 @@ import numpy as np
 
 class OnnxDetector:
     def __init__(self):
-        self.sess = onnxruntime.InferenceSession('util/vision/unit.onnx',
+        self.sess = onnxruntime.InferenceSession('util/vision/side.onnx',
                                                  providers=['CPUExecutionProvider'])
         self.output_name = self.sess.get_outputs()[0].name
         self.input_name = self.sess.get_inputs()[0].name

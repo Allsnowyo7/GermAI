@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 import onnxruntime
 
-from vision.utils import xywh2xyxy, draw_detections, multiclass_nms
+from util.utils import xywh2xyxy, draw_detections, multiclass_nms
 
 path = 'util/vision/unit.onnx'
 # From https://github.com/ibaiGorordo/ONNX-YOLOv8-Object-Detection
