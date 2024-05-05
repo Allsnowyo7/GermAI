@@ -1,14 +1,11 @@
-from util.detector import YOLOv8
+from util.detection.unitDetector import unitDetect
 
-
-detector = YOLOv8(conf_thres=0.3, iou_thres=0.5)
+detector = unitDetect()
 
 class bot():
-    def __init__(self):  
-        pass
-      
+       
     def run(self, screen):
-        annotated_frame = detector(screen)
+        annotated_frame = detector.runModel(screen)
         return annotated_frame
         
         

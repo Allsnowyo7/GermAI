@@ -17,6 +17,10 @@ class WindowCapture():
             
         def get_screen(self):
             # takes a screenshot of the window
-            screen = np.array(self.sct.grab(self.windowPos))
+            screen = np.array(self.sct.grab(self.windowPos)) # .astype('float32')
             screen = screen[...,:3]
             return screen
+
+if __name__ == "__main__":
+    wc = WindowCapture("Clash Royale")
+    print(wc.get_screen())
