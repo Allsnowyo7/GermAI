@@ -9,7 +9,7 @@ loopTime = time()
 
 while(True):
     screen = grabScreen.get_screen()
-    annotated_frame = detection.run(screen)
+    annotated_frame = detection.run(cv.imread('image.png'))
     
     # puts fps and shows the detections
     cv.putText(annotated_frame, str(round(1 / (time() - loopTime), 2)), (40,50), cv.FONT_HERSHEY_PLAIN, 2, (46,201,164), 3, 3)
