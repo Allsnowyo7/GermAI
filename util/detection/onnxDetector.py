@@ -41,3 +41,27 @@ class onnxDetector:
             order = order[inds + 1]
 
         return keep 
+    def nms(self, predicton):
+        prediction = predicton.transpose((0, 2, 1))
+        output = [np.zeros((0, 6))] * len(predicton)
+        for i in range(len(predicton)):
+            x = predicton[i]
+            
+            scores = x[:, 4:]
+            best_scores_idx = np.argmax(scores, axis=1).reshape(-1, 1)
+            best_scores = np.take_along_axis(scores, best_scores_idx, axis=1)
+            
+            # masks out predictions below conf level
+            mask = np.ravel(best_scores > 0.35)
+            best_scores = best_scores[mask]
+            best_scores_idx = best_scores_idx[mask]
+            
+            boxes = x[mask, :4]
+            self._xywh_to_xyxy(boxes)
+            
+            #determins which boxes to keep
+            keep = self._nms(boxes, np.ravel(best_scores), .45)
+            best = np.hstack([boxes[keep], best_scores[keep], best_scores_idx[keep]])
+            
+            output[i] = best
+        return output

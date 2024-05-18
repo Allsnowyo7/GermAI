@@ -20,13 +20,13 @@ class unitDetect(onnxDetector):
         
     def preproces(self, source):
         # resize image to 416 by 416    
-        source = cv.resize(source, (416, 416), interpolation=cv.INTER_CUBIC)
+        source = cv.resize(source, (416, 416), interpolation=cv.INTER_AREA)
         # convery array to float 32
         source = np.array(source, dtype=np.float32)
         # adds an aditional dimension (not really sure why its required but sure)
         source = np.expand_dims(source.transpose(2, 0, 1), axis=0)
         # converts the rgb values... i think
-        source = source / 255
+        # source = source / 255
         return source
     
     def _post_process(self, pred, **kwargs):
@@ -49,6 +49,6 @@ class unitDetect(onnxDetector):
         
         pred = self._post_process(pred, width=width, height=height, image=source)
         
-        print(height)
+        print(pred)
         return pred
     
